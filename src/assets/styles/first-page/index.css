@@ -1,0 +1,62 @@
+.container {
+    width: 378px;
+    height: 520px;
+    background-color: #fff;
+    padding: 21px;
+}
+
+.cash-back {
+    display: flex;
+    justify-content: center;
+}
+
+.content {
+    display: flex;
+    height: 156px;
+    justify-content: space-around;
+    flex-direction: column;
+    margin: auto;
+    width: 302px;
+}
+
+.content > h2 {
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 24px;
+    line-height: 31px;
+    text-align: center;
+}
+
+.content > h3 {
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    padding-bottom: 30px;
+}
+
+.magazine-cash-back-button {
+    background: #59C059;
+    border-radius: 10px;
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 14px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.05em;
+    width: 378px;
+    height: 40px;
+    justify-content: center;
+	margin: 0 auto;
+}
+
+.magazine-cash-back-button > a {
+    text-decoration: none;
+    color: #fff;
+}

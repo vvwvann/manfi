@@ -1,0 +1,79 @@
+.container {
+	height: 560px;
+    width: 420px;
+}
+
+.logo {
+    width: 420px;
+    padding: 21px 21px 0 21px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 20px;
+}
+
+.logo img {
+
+}
+
+.content {
+    height: 393px;
+}
+
+.content > h4 {
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    padding-top: 85px;
+}
+
+.helper-text > h3 {
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+	width: 420px;
+}
+
+.helper-text {
+    display: flex;
+    background: #E5E5E5;
+	padding: 9.5px 0;
+}
+
+.helper-text img {
+    cursor: pointer;
+}
+
+.menu {
+    display: flex;
+    height: 56px;
+}
+
+.active {
+    border-bottom: 4px solid #59B359;
+}
+
+.home, .search, .profile, .countries {
+    width: 105px;
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.search {
+    position: relative;
+    flex-direction: column;
+}
+
+.polygon {
+    position: absolute;
+    top: 0;
+}

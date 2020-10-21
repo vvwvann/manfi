@@ -1,0 +1,163 @@
+.container {
+  height: 560px;
+  width: 420px;
+}
+
+.search-panel {
+  height: 51px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-bottom: 1px solid #e1e2e2;
+}
+
+.search-panel > img {
+  width: 16px;
+  height: 16px;
+}
+
+.search-panel::placeholder {
+  font-family: "Montserrat", Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.search-panel > input {
+  outline: none;
+  width: 360px;
+}
+
+.content {
+  height: 447px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 273px;
+  margin: auto;
+  justify-content: space-evenly;
+}
+
+.content2 {
+  height: 447px;
+  overflow: auto;
+}
+
+.content-title {
+  padding: 20px 20px 0 20px;
+}
+
+.content > p {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 16px;
+  text-align: center;
+  color: #1e1c44;
+}
+
+.text-size1 {
+  font-size: 12px;
+}
+.text-color {
+  color: #59b359;
+}
+.content2-block1 {
+  height: 80px;
+  border-bottom: 1px solid #e1e2e2;
+  padding: 0 0 10px 0;
+}
+.content2-block1-1 {
+  width: 250px;
+  padding: 25px 20px;
+  float: left;
+  cursor: pointer;
+}
+
+.content2-block1-2 {
+  width: 80px;
+  padding: 30px 20px;
+  float: left;
+}
+
+.content2-button-block {
+  float: right;
+  cursor: pointer;
+}
+
+.menu {
+  display: flex;
+  height: 56px;
+
+  background: #fff;
+  border-top: 0.5px solid #b1b1b1;
+}
+
+.active {
+  border-bottom: 4px solid #59b359;
+}
+
+.home,
+.search,
+.profile,
+.countries {
+  width: 105px;
+  height: 56px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.content2-text {
+  display: flex;
+  flex-direction: column;
+  width: 360px;
+  margin: 30px auto;
+}
+.content2-text p {
+  font-size: 12px;
+}
+.content2-text span {
+  color: #59b359;
+}
+.content2-table-blok {
+  height: 60px;
+}
+.content2-table-blok:nth-child(2n-1) {
+  background: #f1f2f2;
+}
+.content2-table h3 {
+  font-size: 13px;
+  padding: 8px 20px;
+}
+.content2-table p {
+  font-size: 12px;
+  padding: 0 20px;
+}
+.content2-table-blok-b1 {
+  width: 118px;
+  float: left;
+  height: 60px;
+  border-right: 1px solid #e1e2e2;
+}
+.content2-table-blok-b2 {
+  width: 279px;
+  float: right;
+  height: 60px;
+  border-left: 1px solid #e1e2e2;
+}
+
+.img-circle1 {
+  position: relative;
+  top: -24px;
+  left: 113px;
+}
+.img-circle2 {
+  position: relative;
+  top: -27px;
+  left: 95px;
+}
+h3 {
+  font-size: 16px;
+}

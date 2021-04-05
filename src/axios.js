@@ -1,9 +1,9 @@
 // axios
-import axios from 'axios'
+import axios from 'axios';
 
-const domain = ""
+const domain = '';
 
 export default axios.create({
-  domain
+  domain,
   // You can add your headers here
-})
+});

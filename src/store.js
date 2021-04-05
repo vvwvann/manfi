@@ -1,6 +1,6 @@
-import Vue from "vue";
+import Vue from 'vue';
 
-import * as Utils from "@/utils";
+import * as Utils from '@/utils';
 
 export const store = Vue.observable({
   settings: {},
@@ -18,7 +18,7 @@ export const mutations = {
   updateSettings(settings) {
     store.settings = settings;
 
-    Utils.setAsync("settings", settings);
+    Utils.setAsync('settings', settings);
   },
   updatePartners(partners) {
     if (!partners) return;
@@ -44,19 +44,19 @@ export const mutations = {
   },
   updateProfile(profile) {
     store.profile = profile;
-    Utils.setAsync("profile", profile);
+    Utils.setAsync('profile', profile);
   },
   updateProduct(product) {
     if (status) {
       if (product.aff) {
         store.status = {
-          text: "Кэшбэк активирован",
-          cl: "status_green",
+          text: 'Кэшбэк активирован',
+          cl: 'status_green',
         };
       } else {
         store.status = {
-          text: "Неафиалитный товар",
-          cl: "status_orange",
+          text: 'Неафиалитный товар',
+          cl: 'status_orange',
         };
       }
     }
@@ -66,10 +66,10 @@ export const mutations = {
 
 export async function init() {
   store.currStore = await Utils.currStore();
-  store.actives = (await Utils.getAsync("actives")) || {};
-  store.settings = (await Utils.getAsync("settings")) || {};
-  store.profile = (await Utils.getAsync("profile")) || {};
-  let partners = await Utils.getAsync("partners");
+  store.actives = (await Utils.getAsync('actives')) || {};
+  store.settings = (await Utils.getAsync('settings')) || {};
+  store.profile = (await Utils.getAsync('profile')) || {};
+  let partners = await Utils.getAsync('partners');
 
   mutations.updatePartners(partners);
 
@@ -82,8 +82,8 @@ export async function init() {
 
   if (currActive && currActive > new Date().getTime()) {
     store.status = {
-      text: "Кэшбэк активирован",
-      cl: "status_green",
+      text: 'Кэшбэк активирован',
+      cl: 'status_green',
     };
     store.isActivate = true;
   } else {
@@ -92,8 +92,8 @@ export async function init() {
       store.currStore = storeObj.store;
       store.status = storeObj
         ? {
-            text: "Кэшбэк неактивизирован",
-            cl: "status_red",
+            text: 'Кэшбэк неактивизирован',
+            cl: 'status_red',
           }
         : undefined;
     }
@@ -101,13 +101,13 @@ export async function init() {
 
   chrome.runtime.onMessage.addListener((data) => {
     switch (data.type) {
-      case "order":
+      case 'order':
         if (data.order) mutations.updateProduct(data.order);
         break;
     }
   });
 
-  let last = await Utils.sendMessageAsync({ type: "order" });
+  let last = await Utils.sendMessageAsync({ type: 'order' });
   if (last) {
     mutations.updateProduct(last);
   }

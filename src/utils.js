@@ -1,9 +1,9 @@
-import * as Api from "@/api";
-import Notify from "@/notify";
+import * as Api from '@/api';
+import Notify from '@/notify';
 
 const paterns = {
-  "aliexpress.com": /^((https?):\/\/)*([a-z0-9]+\.)*aliexpress/,
-  "lamoda.com": /^(https?):\/\/([a-z0-9]+\.)*lamoda/,
+  'aliexpress.com': /^((https?):\/\/)*([a-z0-9]+\.)*aliexpress/,
+  'lamoda.com': /^(https?):\/\/([a-z0-9]+\.)*lamoda/,
 };
 
 export function delayAsync(timeout) {
@@ -51,7 +51,7 @@ export async function convertCurrency(base, val) {
 export function currStore() {
   return new Promise((resolve) => {
     chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
-      let res = "";
+      let res = '';
       if (!tabs || tabs.length == 0 || !tabs[0]) return res;
 
       var t = tabs[0];
@@ -60,9 +60,9 @@ export function currStore() {
         let res;
         try {
           res = new URL(tab.url);
-          if (res.protocol == "https:" || res.protocol == "http:")
+          if (res.protocol == 'https:' || res.protocol == 'http:')
             res = res.hostname;
-          else res = "";
+          else res = '';
         } catch (error) {
           //
         }
@@ -75,8 +75,8 @@ export function currStore() {
 }
 
 export function searchByKey(items, value) {
-  if (value == "") return;
-  value = value.toLowerCase() + ".";
+  if (value == '') return;
+  value = value.toLowerCase() + '.';
 
   let tmp = items[name];
 
@@ -121,12 +121,12 @@ export function urlWithoutQuery(url) {
 }
 
 export function sendMessage(data) {
-  chrome.runtime.sendMessage("", data);
+  chrome.runtime.sendMessage('', data);
 }
 
 export function sendMessageAsync(data) {
   return new Promise((resolve) => {
-    chrome.runtime.sendMessage("", data, undefined, (response) => {
+    chrome.runtime.sendMessage('', data, undefined, (response) => {
       resolve(response);
     });
   });
@@ -140,19 +140,19 @@ export async function updatePartners() {
 
     for (const i in partners) {
       let item = partners[i];
-      let url = item["site-url"];
+      let url = item['site-url'];
       if (url) {
-        const arr = url.split(".");
-        let i = arr[0] === "www" ? 1 : 0;
+        const arr = url.split('.');
+        let i = arr[0] === 'www' ? 1 : 0;
 
         url = arr[i++];
 
         for (; i < arr.length - 1; i++) {
-          url += "." + arr[i];
+          url += '.' + arr[i];
         }
         url = url.toLowerCase();
         item.store = url;
-        url += ".";
+        url += '.';
         unordered[url] = item;
       }
     }
@@ -163,14 +163,14 @@ export async function updatePartners() {
         map[key] = unordered[key];
       });
 
-    await setAsync("partners", map);
+    await setAsync('partners', map);
     return map;
   }
   return null;
 }
 
 export async function tryActivateSpec(store) {
-  let last = await getAsync("last");
+  let last = await getAsync('last');
 
   console.log(last, store);
 
@@ -182,25 +182,25 @@ export async function tryActivateSpec(store) {
 }
 
 export async function activateStore(partner, icon = false) {
-  let actives = (await getAsync("actives")) || {};
+  let actives = (await getAsync('actives')) || {};
 
-  const days = parseInt(partner["cookie-lifetime"].split(" ")[0]);
+  const days = parseInt(partner['cookie-lifetime'].split(' ')[0]);
 
   if (days > 0) {
     let date = new Date();
     date = date.setDate(date.getDate() + days);
     actives[partner.store] = date;
 
-    await setAsync("actives", actives);
+    await setAsync('actives', actives);
 
     sendMessage({
-      type: "notification",
+      type: 'notification',
       options: Notify.activate,
     });
 
     if (icon) {
       sendMessage({
-        type: "spec-activate",
+        type: 'spec-activate',
       });
     }
 

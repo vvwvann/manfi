@@ -1,8 +1,8 @@
-import * as Api from "@/api";
-import * as Utils from "@/utils";
+import * as Api from '@/api';
+import * as Utils from '@/utils';
 
 export async function getInfo(data, tabUrl) {
-  console.log("data:", data);
+  console.log('data:', data);
 
   let storeId = data.storeModule.storeNum;
   let image = data.imageModule.imagePathList[0];
@@ -10,7 +10,7 @@ export async function getInfo(data, tabUrl) {
 
   if (storeId != null) {
     checkUrl =
-      "https://feedback.aliexpress.com/display/evaluationDetail.htm?storeId=" +
+      'https://feedback.aliexpress.com/display/evaluationDetail.htm?storeId=' +
       storeId;
   }
 
@@ -45,24 +45,24 @@ export async function getInfo(data, tabUrl) {
         currency: amount.currency,
       };
 
-      console.log("price", priceInfo);
+      console.log('price', priceInfo);
       if (!isNaN(priceInfo.sum)) {
-        if (priceInfo.currency != "USD") {
+        if (priceInfo.currency != 'USD') {
           let val = await Utils.convertCurrency(
             priceInfo.currency,
             priceInfo.sum
           );
 
-          console.log("v", val);
+          console.log('v', val);
 
           sum = isNaN(val) ? undefined : val;
         } else {
           sum = priceInfo.sum;
         }
 
-        console.log("price-origin", sum, percent);
+        console.log('price-origin', sum, percent);
 
-        if (sum) sum = "$" + (sum * percent * 0.01).toFixed(2);
+        if (sum) sum = '$' + (sum * percent * 0.01).toFixed(2);
       }
     } catch {
       //
@@ -71,9 +71,9 @@ export async function getInfo(data, tabUrl) {
 
   if (ownerMemberId != null && storeId != null) {
     var feedbackUrl =
-      "https://feedback.aliexpress.com/display/evaluationDetail.htm?ownerMemberId=" +
+      'https://feedback.aliexpress.com/display/evaluationDetail.htm?ownerMemberId=' +
       ownerMemberId +
-      "&storeId=" +
+      '&storeId=' +
       storeId;
     let response = await fetch(feedbackUrl);
     let data = await response.text();
@@ -92,7 +92,7 @@ export async function getInfo(data, tabUrl) {
     }
   }
 
-  console.log("price", sum, percent);
+  console.log('price', sum, percent);
 
   return {
     description,
@@ -100,7 +100,7 @@ export async function getInfo(data, tabUrl) {
     url,
     rait,
     image,
-    img: "images/third-page/aliexpress2.png",
+    img: 'images/third-page/aliexpress2.png',
     sum,
   };
 }
@@ -112,14 +112,14 @@ async function postStorePage(url, content) {
   for (const property in data) {
     const encodedKey = encodeURIComponent(property);
     const encodedValue = encodeURIComponent(data[property]);
-    formBody.push(encodedKey + "=" + encodedValue);
+    formBody.push(encodedKey + '=' + encodedValue);
   }
-  formBody = formBody.join("&");
+  formBody = formBody.join('&');
 
-  let response = await fetch("https://api.track24.ru/store-info.json.php", {
-    method: "POST",
+  let response = await fetch('https://api.track24.ru/store-info.json.php', {
+    method: 'POST',
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
+      'Content-Type': 'application/x-www-form-urlencoded',
     },
     body: formBody,
   });
@@ -127,7 +127,7 @@ async function postStorePage(url, content) {
   let json = await response.json();
 
   if (json) {
-    if (json["status"] == "ok") {
+    if (json['status'] == 'ok') {
       // $('#storeResult').empty();
       //       $('#storeResult').append('<p>'+aliexpressRating(json.data.feedback_score)+' <a href="https://track24.ru/?g=checkStore&p='+json.data.store_url+'" target="_blank"><span class="storeName">'+json.data.store_name+'</span></a></p>');
       //     $('#storeResult').append('<p><hr></p>');
@@ -140,7 +140,7 @@ async function postStorePage(url, content) {
 }
 
 async function getStoreInfo(checkUrl) {
-  let url = "https://api.track24.ru/store-info.json.php";
+  let url = 'https://api.track24.ru/store-info.json.php';
   const tab = await Utils.currTab();
   if (tab == undefined) return;
   const tabLink = tab.url;

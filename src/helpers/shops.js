@@ -1,23 +1,23 @@
-import * as Utils from "@/utils";
-import * as Ali from "../stores/aliexpress";
+import * as Utils from '@/utils';
+import * as Ali from '../stores/aliexpress';
 
 let _sessions = {};
 let _deletes = {};
 
-chrome.runtime.onMessageExternal.addListener(function(
+chrome.runtime.onMessageExternal.addListener(function (
   request,
   sender,
   senderResponse
 ) {
   console.log({ sender, senderResponse });
   switch (request.type) {
-    case "orderInfo": {
+    case 'orderInfo': {
       const id = request.sessionId;
       if (_deletes[id]) return;
 
       _sessions[id] = request.data;
 
-      console.log("order:", request.data);
+      console.log('order:', request.data);
       break;
     }
   }
@@ -31,7 +31,7 @@ export async function orderInfoAsync(store, tabUrl, sessionId) {
   let info;
   console.log({ store, tabUrl, sessionId });
   switch (store) {
-    case "aliexpress": {
+    case 'aliexpress': {
       executeScript(sessionId);
       let data;
       for (let i = 0; i < 5; i++) {
@@ -44,7 +44,7 @@ export async function orderInfoAsync(store, tabUrl, sessionId) {
       delete _sessions[sessionId];
       break;
     }
-    case "lamoda":
+    case 'lamoda':
       info = await lamodaInfo(tabUrl);
       break;
   }
@@ -82,7 +82,7 @@ function executeScript(sessionId) {
 async function lamodaInfo(percent, tabUrl) {
   let response = await fetch(tabUrl);
   let data = await response.text();
-  let image = "";
+  let image = '';
 
   let regExp = /property="og:image" content="(.*?)"/;
   let matches = regExp.exec(data);
@@ -107,14 +107,14 @@ async function lamodaInfo(percent, tabUrl) {
       if (currency) {
         sum = (parseFloat(sum) * percent).toFixed(2);
 
-        sum = isNaN(sum) ? undefined : sum + " " + currency;
+        sum = isNaN(sum) ? undefined : sum + ' ' + currency;
       }
 
-      console.log("price", sum, currency);
+      console.log('price', sum, currency);
     }
   }
 
-  console.log("price", sum);
+  console.log('price', sum);
 
   return {
     description,

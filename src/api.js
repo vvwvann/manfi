@@ -1,4 +1,4 @@
-import * as Utils from "@/utils";
+import * as Utils from '@/utils';
 
 export let TOKEN;
 export let U_ID;
@@ -10,20 +10,20 @@ export function init({ auth, id }) {
 
 export async function login(username, password) {
   const formData = new FormData();
-  formData.append("username", username);
-  formData.append("password", password);
+  formData.append('username', username);
+  formData.append('password', password);
 
   try {
-    let response = await fetch("https://api.manfi.ru/api/users/login/", {
-      method: "POST",
+    let response = await fetch('https://api.manfi.ru/api/users/login/', {
+      method: 'POST',
       headers: {
-        "cache-control": "no-cache",
+        'cache-control': 'no-cache',
       },
       body: formData,
     });
 
     let result = (await response.json()) || {};
-    if (result.err_core == "" || result.err_core == undefined) {
+    if (result.err_core == '' || result.err_core == undefined) {
       return result.data;
     }
   } catch (e) {
@@ -38,16 +38,16 @@ export function activate() {
 export async function partnersList() {
   try {
     let response = await fetch(`https://api.manfi.ru/api/getpartner/list/`, {
-      method: "GET",
+      method: 'GET',
       headers: {
-        "cache-control": "no-cache",
+        'cache-control': 'no-cache',
         Authorization: `Bearer ${TOKEN}`,
       },
     });
 
     let result = (await response.json()) || {};
     if (
-      (result.err_core == "" || result.err_core == undefined) &&
+      (result.err_core == '' || result.err_core == undefined) &&
       result.data
     ) {
       return result.data.partners;
@@ -62,9 +62,9 @@ export async function partners(url) {
     let response = await fetch(
       `https://api.manfi.ru/api/getpartner/domain/?url=${url}`,
       {
-        method: "GET",
+        method: 'GET',
         headers: {
-          "cache-control": "no-cache",
+          'cache-control': 'no-cache',
           Authorization: `Bearer ${TOKEN}`,
         },
       }
@@ -73,7 +73,7 @@ export async function partners(url) {
     let result = (await response.json()) || {};
     console.log(result);
     if (
-      (result.err_core == "" || result.err_core == undefined) &&
+      (result.err_core == '' || result.err_core == undefined) &&
       result.data
     ) {
       return result.data.partners;
@@ -91,9 +91,9 @@ export async function track(code) {
     let response = await fetch(
       `https://api.manfi.ru/api/pochtarf/percelhistory/?track_id=${code}`,
       {
-        method: "GET",
+        method: 'GET',
         headers: {
-          "cache-control": "no-cache",
+          'cache-control': 'no-cache',
           Authorization: `Bearer ${TOKEN}`,
         },
       }
@@ -109,7 +109,7 @@ export async function track(code) {
 
     const history = response.history; // array
 
-    if (history == undefined || history["0"] == undefined) return undefined;
+    if (history == undefined || history['0'] == undefined) return undefined;
 
     let op = history[0];
     let start = new Date(op.OperationParameters.OperDate);
@@ -155,7 +155,7 @@ export async function deplinkFromPartners(url) {
   let list = await partners(url);
   if (!list) return;
 
-  let prevPartners = (await Utils.getAsync("partners")) || {};
+  let prevPartners = (await Utils.getAsync('partners')) || {};
 
   for (const i in list) {
     const item = list[i];
@@ -170,27 +170,27 @@ export async function deplinkFromPartners(url) {
     }
   }
 
-  await Utils.setAsync("partners", prevPartners);
+  await Utils.setAsync('partners', prevPartners);
 
   return prevPartners;
 }
 
 export async function deplink(original_url, pId) {
   try {
-    const url = new URL("https://api.manfi.ru/api/affiliates/deeplinkgen/");
+    const url = new URL('https://api.manfi.ru/api/affiliates/deeplinkgen/');
     const params = { original_url, uId: U_ID, pId };
     url.search = new URLSearchParams(params).toString();
     let response = await fetch(url, {
-      method: "GET",
+      method: 'GET',
       headers: {
-        "cache-control": "no-cache",
+        'cache-control': 'no-cache',
         Authorization: `Bearer ${TOKEN}`,
       },
     });
 
     let result = (await response.json()) || {};
 
-    if (result.err_core == "" || result.err_core == undefined) {
+    if (result.err_core == '' || result.err_core == undefined) {
       return result.data;
     }
   } catch (e) {
@@ -211,17 +211,17 @@ export async function curencyRate(base) {
 
 export async function userInfo() {
   try {
-    let response = await fetch("https://api.manfi.ru/api/users/user/", {
-      method: "GET",
+    let response = await fetch('https://api.manfi.ru/api/users/user/', {
+      method: 'GET',
       headers: {
-        "cache-control": "no-cache",
+        'cache-control': 'no-cache',
         Authorization: `Bearer ${TOKEN}`,
       },
     });
 
     let result = (await response.json()) || {};
 
-    if (result.err_core == "" || result.err_core == undefined) {
+    if (result.err_core == '' || result.err_core == undefined) {
       return result.data;
     }
   } catch (e) {
@@ -232,11 +232,11 @@ export async function userInfo() {
 export async function percelsAsync() {
   try {
     let response = await fetch(
-      "https://api.manfi.ru/api/pochtarf/percelslist/",
+      'https://api.manfi.ru/api/pochtarf/percelslist/',
       {
-        method: "GET",
+        method: 'GET',
         headers: {
-          "cache-control": "no-cache",
+          'cache-control': 'no-cache',
           Authorization: `Bearer ${TOKEN}`,
         },
       }
@@ -244,7 +244,7 @@ export async function percelsAsync() {
 
     let result = (await response.json()) || {};
 
-    if (result.err_core == "" || result.err_core == undefined) {
+    if (result.err_core == '' || result.err_core == undefined) {
       return result.data.percels;
     }
   } catch (e) {
@@ -256,10 +256,10 @@ export async function percelsAsync() {
 export async function removePercel(id) {
   try {
     await fetch(`https://api.manfi.ru/api/pochtarf/perceldelete/`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "cache-control": "no-cache",
-        "content-type": "application/json",
+        'cache-control': 'no-cache',
+        'content-type': 'application/json',
         Authorization: `Bearer ${TOKEN}`,
       },
       body: JSON.stringify({ id }),
@@ -272,10 +272,10 @@ export async function removePercel(id) {
 export async function addPercel(track_id) {
   try {
     await fetch(`https://api.manfi.ru/api/pochtarf/perceladd/`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "cache-control": "no-cache",
-        "content-type": "application/json",
+        'cache-control': 'no-cache',
+        'content-type': 'application/json',
         Authorization: `Bearer ${TOKEN}`,
       },
       body: JSON.stringify({ track_id }),
@@ -288,16 +288,16 @@ export async function addPercel(track_id) {
 export async function notifications() {
   try {
     let response = await fetch(`https://api.manfi.ru/api/notifications/data/`, {
-      method: "GET",
+      method: 'GET',
       headers: {
-        "cache-control": "no-cache",
+        'cache-control': 'no-cache',
         Authorization: `Bearer ${TOKEN}`,
       },
     });
 
     let result = (await response.json()) || {};
     if (
-      (result.err_core == "" || result.err_core == undefined) &&
+      (result.err_core == '' || result.err_core == undefined) &&
       result.data
     ) {
       return result.data.partners;
@@ -309,23 +309,23 @@ export async function notifications() {
 
 export async function alicomission(url) {
   const formData = new FormData();
-  formData.append("original_url", url);
+  formData.append('original_url', url);
 
   try {
     let response = await fetch(
-      "https://api.manfi.ru/api/affiliates/alicommission/",
+      'https://api.manfi.ru/api/affiliates/alicommission/',
       {
-        method: "POST",
+        method: 'POST',
         headers: {
-          authorization: "Bearer " + TOKEN,
-          "cache-control": "no-cache",
+          authorization: 'Bearer ' + TOKEN,
+          'cache-control': 'no-cache',
         },
         body: formData,
       }
     );
 
     let result = (await response.json()) || {};
-    if (result.err_core == "" || result.err_core == undefined) {
+    if (result.err_core == '' || result.err_core == undefined) {
       return result.data;
     }
   } catch (e) {
@@ -342,19 +342,19 @@ export async function testAff(urlStore, pId) {
     aff: false,
   };
   try {
-    const url = new URL("https://api.manfi.ru/api/affiliates/validatelinks/");
+    const url = new URL('https://api.manfi.ru/api/affiliates/validatelinks/');
     url.search = new URLSearchParams({ original_url }).toString();
     let response = await fetch(url, {
-      method: "GET",
+      method: 'GET',
       headers: {
-        "cache-control": "no-cache",
+        'cache-control': 'no-cache',
         Authorization: `Bearer ${TOKEN}`,
       },
     });
 
     let result = (await response.json()) || {};
 
-    if (result.err_code == "" || result.err_code == undefined) {
+    if (result.err_code == '' || result.err_code == undefined) {
       res.aff = result.data.message != undefined;
     }
   } catch (e) {
@@ -366,14 +366,14 @@ export async function testAff(urlStore, pId) {
 
 function getDate(date) {
   return (
-    pad(date.getDate()) + "." + pad(date.getMonth()) + "." + date.getFullYear()
+    pad(date.getDate()) + '.' + pad(date.getMonth()) + '.' + date.getFullYear()
   );
 }
 
 function getTime(date) {
-  return pad(date.getHours()) + ":" + pad(date.getMinutes());
+  return pad(date.getHours()) + ':' + pad(date.getMinutes());
 }
 
 function pad(v) {
-  return ("0" + v).slice(-2);
+  return ('0' + v).slice(-2);
 }
